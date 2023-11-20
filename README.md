@@ -3,7 +3,7 @@
 </p>
 <p align="center">
     Created by
-    <img src="assets/icon.svg" width="130" height="25" align="center">
+    <img src="assets/test.svg" width="130" height="25" align="center">
 </p>
 
 ---
