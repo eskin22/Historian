@@ -55,3 +55,84 @@ This will offer users an intuitive way to visualize their search history while p
 **Rohan Parekh** <br> rohanjp2@illinois.edu <br>
 **Megha Chada** <br> megharc2@illinois.edu <br>
 **Michael Ma** <br> chiuyin2@illinois.edu
+
+## Prerequisites
+
+- Node.js and npm installed for the frontend.
+- Python 3.10.10 installed for the backend.
+
+## Setup & Running Locally
+
+### Frontend (React)
+
+1. Navigate to the frontend directory:
+
+```bash
+cd ambassco-frontend
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the React development server:
+
+```bash
+npm start
+```
+
+By default, the frontend will be available at `http://localhost:3000`.
+
+### Backend (Flask in Python)
+
+1. Set up a virtual environment (if you haven't already):
+
+```bash
+python3 -m venv venv
+```
+
+2. Activate the virtual environment:
+
+- **Linux/MacOS**:
+
+```bash
+source venv/bin/activate
+```
+
+- **Windows**:
+
+```bash
+venv\Scripts\activate
+```
+
+3. Install libraries:
+
+```bash
+pip install -r requirements.txt
+```
+
+Optionally, use this to add libraries to requirements.txt:
+```bash
+pip freeze > requirements. txt
+```
+
+4. Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+4. Start the Flask development server:
+
+```bash
+flask --app server run
+```
+
+Optionally run for automatic reloading when code changes:
+```bash
+flask --app server run --debug
+```
+
+By default, the backend will be available at `http://localhost:5000`.
