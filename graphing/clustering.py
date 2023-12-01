@@ -258,7 +258,7 @@ if __name__ == '__main__':
     # sample usage
     
     # load in sample documents as Document objects
-    docs = [Document(file) for file in os.listdir('sample_data')]
+    docs = [Document(file, test=True) for file in os.listdir('sample_data')]
     
     # create a HierarchicalClusting object to cluster documents
     hc = HierarchicalClustering()

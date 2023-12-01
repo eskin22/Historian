@@ -21,7 +21,7 @@ class Document():
         Args:
             test (bool, optional): Use `True` for sample data and `False` for real data. Defaults to False.
         """
-        filepath = self.title if not test else f'sample_data/{self.title}'
+        filepath = self.title if test is False else f'sample_data/{self.title}'
         with open(filepath, 'r', encoding='utf-8') as file:
             self.text = file.read()
             file.close()
