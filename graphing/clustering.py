@@ -96,8 +96,8 @@ class HierarchicalClustering():
         Returns:
             go.Figure: A dendrogram figure
         """
-        webpage_names = [doc.title for doc in docs]
-        dendrogram = Dendrogram(cluster, webpage_names).create()
+        # webpage_names = [doc.title for doc in docs]
+        dendrogram = Dendrogram(cluster, docs).create()
         return dendrogram
     
 class Dendrogram():
@@ -112,7 +112,15 @@ class Dendrogram():
             cluster (_type_): The hierarchical cluster of the data
             docs (list): The list of documents
         """
-        dendro = dendrogram(cluster, labels=docs, no_plot=True)
+        
+        self.documents = {}
+        for doc in docs:
+            self.documents[doc.title] = doc
+        
+        # for key, val in self.documents.items():
+        #     print(f'key: {key} val: {val}')
+        
+        dendro = dendrogram(cluster, labels=list(self.documents.keys()), no_plot=True)
         self.icoords, self.dcoords = dendro['icoord'], dendro['dcoord']
         self.color_list = dendro['color_list']
         self.names = dendro['ivl']
@@ -180,7 +188,10 @@ class Dendrogram():
                             size = 18
                         ),
                         bordercolor = 'white'
-                    )
+                    ),
+                    customdata=[
+                        self.documents.get(self.names[self.name_pointer]).url
+                    ]
                 ))
                 self.name_pointer += 1
 
@@ -200,7 +211,10 @@ class Dendrogram():
                             size = 18
                         ),
                         bordercolor = 'white'
-                    )
+                    ),
+                    customdata=[
+                        self.documents.get(self.names[self.name_pointer]).url
+                    ]
                 ))
                 self.name_pointer += 1
     
@@ -259,7 +273,7 @@ if __name__ == '__main__':
     
     # load in sample documents as Document objects
     docs = [Document(file, test=True) for file in os.listdir('sample_data')]
-    
+    print(docs)
     # create a HierarchicalClusting object to cluster documents
     hc = HierarchicalClustering()
     
