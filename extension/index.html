@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dash App</title>
+  <style>
+    body { margin: 0; padding: 0; }
+    .iframe-container {
+      width: 600px;
+      height: 300px;
+      overflow: hidden; /* Hide the scaled-out parts */
+    }
+    iframe {
+      width: 1200px; /* Double the size of the container */
+      height: 600px;
+      border: none;
+      -ms-zoom: 0.5;
+      -moz-transform: scale(0.5);
+      -moz-transform-origin: 0 0;
+      -o-transform: scale(0.5);
+      -o-transform-origin: 0 0;
+      -webkit-transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="iframe-container">
+    <iframe src="http://127.0.0.1:8050/" frameborder="0"></iframe>
+  </div>
+</body>
+</html>

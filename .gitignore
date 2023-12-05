@@ -1,0 +1,18 @@
+# Node modules
+/frontend/node_modules/
+
+# Backend Python virtual environment
+/backend/venv3/
+/backend/venv/
+/backend/env/
+/env/
+
+# Python files
+**/__pycache__/
+
+# Environment files
+*.env
+
+# Lock files
+package-lock.json   # for npm
+yarn.lock           # for yarn
