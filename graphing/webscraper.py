@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+from document import Document
+
 class WebScraper():
     """
     A class for extracting text data from webpages
@@ -11,7 +13,7 @@ class WebScraper():
         """
         Initializes a `WebScraper` object
         """
-        self.corpus = {}
+        self.corpus = []
         
     def getWebpageText(self, response : object) -> str:
         """
@@ -35,7 +37,7 @@ class WebScraper():
         
         return cleaned_text
         
-    def scrapeWebpage(self, *urls : str | list) -> None:
+    def scrapeWebpage(self, urls : list) -> None:
         """
         Extracts text data from webpage(s) at a given url and saves their text data as a string into the `Webscraper.corpus` hashmap
 
@@ -57,10 +59,14 @@ class WebScraper():
                 
                 text = self.getWebpageText(response)
                 
-                self.corpus[title] = text
+                doc = Document(title, text, url)
+                
+                self.corpus.append(doc)
                 
             except Exception as e:
                 print(e); print(f"Error: Failed to scrape webpage at {url}\n\nPlease verify that this is a valid url.")
+        
+        return self.corpus
                 
     def saveCorpus(self, filepath='sample_data') -> None:
         """
@@ -82,26 +88,34 @@ if __name__ == '__main__':
     scraper = WebScraper()
 
     # scrape webpages at the desired urls 
-    scraper.scrapeWebpage(
+    # docs = scraper.scrapeWebpage(
         
-        # software engineering
-        "https://www.forbes.com/advisor/education/become-software-engineer/",
-        "https://www.mtu.edu/cs/undergraduate/software/what/",
-        "https://www.cnbc.com/2019/06/14/how-much-google-facebook-other-tech-giants-pay-software-engineers.html",
+    #     # software engineering
+    #     "https://www.forbes.com/advisor/education/become-software-engineer/",
+    #     "https://www.mtu.edu/cs/undergraduate/software/what/",
+    #     "https://www.cnbc.com/2019/06/14/how-much-google-facebook-other-tech-giants-pay-software-engineers.html",
         
-        # basketball
-        "https://www.britannica.com/list/the-10-greatest-basketball-players-of-all-time",
-        "https://www.breakthroughbasketball.com/basics/basics.html",
+    #     # basketball
+    #     "https://www.britannica.com/list/the-10-greatest-basketball-players-of-all-time",
+    #     "https://www.breakthroughbasketball.com/basics/basics.html",
         
-        # computer science
-        "https://joinhandshake.com/blog/students/top-10-jobs-for-computer-science-majors/",
-        "https://www.zdnet.com/education/computers-tech/best-careers-with-computer-science-degree/",
-        "https://undergrad.cs.umd.edu/what-computer-science"
+    #     # computer science
+    #     "https://joinhandshake.com/blog/students/top-10-jobs-for-computer-science-majors/",
+    #     "https://www.zdnet.com/education/computers-tech/best-careers-with-computer-science-degree/",
+    #     "https://undergrad.cs.umd.edu/what-computer-science"
 
-    )
+    # )
+    
+    docs = scraper.scrapeWebpage([
+        "https://www.forbes.com/advisor/education/become-software-engineer/",
+        "https://www.cnbc.com/2019/06/14/how-much-google-facebook-other-tech-giants-pay-software-engineers.html"
+    ])
+    
+    for doc in docs:
+        print(doc)
 
     # save the results
-    scraper.saveCorpus()
+    # scraper.saveCorpus()
     
 
 

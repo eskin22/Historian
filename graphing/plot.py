@@ -5,6 +5,9 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import webbrowser
 import os
+from flask import request
+from flask_cors import CORS
+from flask import jsonify
 
 from document import Document
 from clustering import HierarchicalClustering
@@ -55,6 +58,10 @@ dendro = hc.create_dendrogram(cluster, docs)
 # Initialize the Dash app
 app = dash.Dash(__name__)
 
+extension_id = "inkjogmocgpoclmjkngkdblcpceagmnc"
+
+CORS(app.server, resources={r"/receive_data": {"origins": f"chrome-extension://{extension_id}"}})
+
 app.layout = html.Div([
     dcc.Graph(
         id='plotly-graph',
@@ -71,6 +78,13 @@ def display_click_data(clickData):
         point_url = clickData['points'][0]['customdata']
         webbrowser.open_new_tab(point_url)
     return dendro
+
+@app.server.route('/receive_data', methods=['POST'])
+def receive_data():
+    data = request.json
+    urls = data.get('urls', [])
+    print(urls)
+    return jsonify(message='URLs received'), 200
 
 if __name__ == '__main__':
     app.run_server(debug=False)

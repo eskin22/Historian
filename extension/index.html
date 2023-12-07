@@ -4,7 +4,7 @@
   <title>Historian</title>
   <style>
     body { margin: 0; padding: 0; }
-    .iframe-container {
+    #graphFrame {
       width: 600px;
       height: 300px;
       overflow: hidden; /* Hide the scaled-out parts */
@@ -27,9 +27,11 @@
   </style> 
 </head>
 <body>
-  <div class="iframe-container">
-    <iframe src="http://127.0.0.1:8050/" frameborder="0"></iframe>
-    
+  <button id="historyButton">Visualize Searches</button>
+  <div id="historyResults"></div>
+  <div id="graphFrame">
+    <iframe id='graph' src="http://127.0.0.1:8050/" frameborder="0"></iframe>  
   </div>
+  <script src="getPlot.js"></script>
 </body>
 </html>

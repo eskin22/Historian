@@ -6,5 +6,9 @@
   "action": {
     "default_popup": "index.html",
     "default_icon": "logo.png"
-  }
+  },
+  "permissions": [
+    "history",
+    "http://127.0.0.1/*"
+  ]
 }

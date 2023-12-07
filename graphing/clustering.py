@@ -97,6 +97,7 @@ class HierarchicalClustering():
             go.Figure: A dendrogram figure
         """
         # webpage_names = [doc.title for doc in docs]
+        print(f"Cluster Shape: {cluster.shape}\nLabels Length: {len(docs)}")
         dendrogram = Dendrogram(cluster, docs).create()
         return dendrogram
     
