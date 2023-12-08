@@ -1,35 +1,63 @@
 from webscraper import WebScraper
 from clustering import HierarchicalClustering
 
-urls = [
+scraper = WebScraper()
+
+PARAM = 0
+# PARAM = 1
+
+if PARAM == 0:
+    
+    print("TEST CASE")
+
+    urls = [
         
-    "https://www.google.com/search?q=top+10+cities+in+the+us&rlz=1C1VDKB_enUS1062US1062&oq=top+10+cities+in+the+us&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCTE3NjIyajBqNKgCALACAA&sourceid=chrome&ie=UTF-8#ip=1",
-    "https://www.google.com/search?q=top+10+cities+in+the+us&rlz=1C1VDKB_enUS1062US1062&oq=top+10+cities+in+the+us&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCTE3NjIyajBqNKgCALACAA&sourceid=chrome&ie=UTF-8",
-    "https://www.cntraveler.com/gallery/best-cities-us",
-    "https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population",
-    "https://en.wikipedia.org/wiki/Basketball",
-    "https://www.google.com/search?q=what+is+basketball%3F&rlz=1C1VDKB_enUS1062US1062&oq=what+is+basketball%3F&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCDg2NjFqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8",
-    "https://www.complex.com/sports/a/adam-caparell/best-nba-players-of-all-time-ranked",
-    "https://www.google.com/search?q=best+basketball+players+of+all+time&rlz=1C1VDKB_enUS1062US1062&oq=best+basketball+players+of+all+time&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCDczNTJqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8",
-    "https://www.stxnext.com/python-vs-other-programming-languages/",
-    "https://www.google.com/search?q=how+is+python+different+from+other+languages%3F&rlz=1C1VDKB_enUS1062US1062&oq=how+is+python+different+from+other+languages%3F&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABiABDIICAIQABgWGB4yCAgDEAAYFhgeMg0IBBAAGIYDGIAEGIoF0gEINTgzOWowajSoAgCwAgA&sourceid=chrome&ie=UTF-8",
-    "https://www.google.com/search?q=top+10+cities+in+the+us&rlz=1C1VDKB_enUS1062US1062&oq=top+10+cities+in+the+us&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCTE3NjIyajBqNKgCALACAA&sourceid=chrome&ie=UTF-8#ip=1",
-    "https://www.google.com/search?q=top+10+cities+in+the+us&rlz=1C1VDKB_enUS1062US1062&oq=top+10+cities+in+the+us&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCTE3NjIyajBqNKgCALACAA&sourceid=chrome&ie=UTF-8",
-    "https://www.cntraveler.com/gallery/best-cities-us",
-    "https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population",
-    "https://en.wikipedia.org/wiki/Basketball",
-    "https://www.google.com/search?q=what+is+basketball%3F&rlz=1C1VDKB_enUS1062US1062&oq=what+is+basketball%3F&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCDg2NjFqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8",
-    "https://www.complex.com/sports/a/adam-caparell/best-nba-players-of-all-time-ranked",
-    "https://www.google.com/search?q=best+basketball+players+of+all+time&rlz=1C1VDKB_enUS1062US1062&oq=best+basketball+players+of+all+time&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCDczNTJqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8",
-    "https://www.stxnext.com/python-vs-other-programming-languages/",
-    "https://www.google.com/search?q=how+is+python+different+from+other+languages"
-]
+        "https://www.cntraveler.com/gallery/best-cities-us",
+        "https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population",
+        "https://en.wikipedia.org/wiki/Basketball",
+        "https://www.complex.com/sports/a/adam-caparell/best-nba-players-of-all-time-ranked",
+        "https://www.stxnext.com/python-vs-other-programming-languages/",
+        "https://www.cntraveler.com/gallery/best-cities-us",
+        "https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population",
+        "https://en.wikipedia.org/wiki/Basketball",
+        "https://www.complex.com/sports/a/adam-caparell/best-nba-players-of-all-time-ranked",
+        "https://www.google.com/search?q=best+basketball+players+of+all+time&rlz=1C1VDKB_enUS1062US1062&oq=best+basketball+players+of+all+time&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCDczNTJqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8",
+        "https://www.stxnext.com/python-vs-other-programming-languages/",
+        # "https://www.google.com/search?q=how+is+python+different+from+other+languages"
+        
+    ]
 
-urls = list(set(urls))
+elif PARAM == 1:
+    
+    print("WORKING CASE")
 
-webscraper = WebScraper()
+    urls = [
+        
+        # software engineering
+        "https://www.forbes.com/advisor/education/become-software-engineer/",
+        "https://www.mtu.edu/cs/undergraduate/software/what/",
+        "https://www.cnbc.com/2019/06/14/how-much-google-facebook-other-tech-giants-pay-software-engineers.html",
+        
+        # basketball
+        "https://www.britannica.com/list/the-10-greatest-basketball-players-of-all-time",
+        "https://www.breakthroughbasketball.com/basics/basics.html",
+        
+        # computer science
+        "https://joinhandshake.com/blog/students/top-10-jobs-for-computer-science-majors/",
+        "https://www.zdnet.com/education/computers-tech/best-careers-with-computer-science-degree/",
+        "https://undergrad.cs.umd.edu/what-computer-science"
 
-docs = webscraper.scrapeWebpage(urls)
+    ]
+
+print(f"# of URLS: {len(urls)}")
+
+# urls = list(set(urls))
+
+print(f"# of URLS after prune: {len(urls)}")
+
+docs = scraper.scrapeWebpage(urls)
+
+# docs = list(set(docs))
 
 hc = HierarchicalClustering()
 

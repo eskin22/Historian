@@ -2,34 +2,24 @@
 <html>
 <head>
   <title>Historian</title>
-  <style>
-    body { margin: 0; padding: 0; }
-    #graphFrame {
-      width: 600px;
-      height: 300px;
-      overflow: hidden; /* Hide the scaled-out parts */
-    }
-    iframe {
-      width: 1200px; /* Double the size of the container */
-      height: 600px; 
-      border: none;
-      -ms-zoom: 0.5;
-      -moz-transform: scale(0.5);
-      -moz-transform-origin: 0 0;
-      -o-transform: scale(0.5);
-      -o-transform-origin: 0 0;
-      -webkit-transform: scale(0.5);
-      -webkit-transform-origin: 0 0;
-      transform: scale(0.5);
-      transform-origin: 0 0;
-    }
-    /* Might need to switch URL to http://localhost:8050 */
-  </style> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Might need to switch URL to http://localhost:8050 -->
 </head>
 <body>
-  <button id="historyButton">Visualize Searches</button>
-  <div id="historyResults"></div>
+  <div id="spinner-wrapper" style="display: none;">
+    <div class="spinner"></div>
+  </div>
+  <div id="buttonHeader">
+    <button id="historyButton">Visualize History</button>    
+  </div>
   <div id="graphFrame">
+    <h2 id="graphHeader">There's nothing here (yet!)</h2>
     <iframe id='graph' src="http://127.0.0.1:8050/" frameborder="0"></iframe>  
   </div>
   <script src="getPlot.js"></script>

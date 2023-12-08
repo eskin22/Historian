@@ -45,6 +45,8 @@ class WebScraper():
             self (object): `WebScraper` object
             urls (str | list): one or multiple urls for the webpages you want to scrape
         """
+        
+        urls = list(set(urls))
      
         for url in urls:
         
@@ -88,23 +90,23 @@ if __name__ == '__main__':
     scraper = WebScraper()
 
     # scrape webpages at the desired urls 
-    # docs = scraper.scrapeWebpage(
+    docs = scraper.scrapeWebpage([
         
-    #     # software engineering
-    #     "https://www.forbes.com/advisor/education/become-software-engineer/",
-    #     "https://www.mtu.edu/cs/undergraduate/software/what/",
-    #     "https://www.cnbc.com/2019/06/14/how-much-google-facebook-other-tech-giants-pay-software-engineers.html",
+        # software engineering
+        "https://www.forbes.com/advisor/education/become-software-engineer/",
+        "https://www.mtu.edu/cs/undergraduate/software/what/",
+        "https://www.cnbc.com/2019/06/14/how-much-google-facebook-other-tech-giants-pay-software-engineers.html",
         
-    #     # basketball
-    #     "https://www.britannica.com/list/the-10-greatest-basketball-players-of-all-time",
-    #     "https://www.breakthroughbasketball.com/basics/basics.html",
+        # basketball
+        "https://www.britannica.com/list/the-10-greatest-basketball-players-of-all-time",
+        "https://www.breakthroughbasketball.com/basics/basics.html",
         
-    #     # computer science
-    #     "https://joinhandshake.com/blog/students/top-10-jobs-for-computer-science-majors/",
-    #     "https://www.zdnet.com/education/computers-tech/best-careers-with-computer-science-degree/",
-    #     "https://undergrad.cs.umd.edu/what-computer-science"
+        # computer science
+        "https://joinhandshake.com/blog/students/top-10-jobs-for-computer-science-majors/",
+        "https://www.zdnet.com/education/computers-tech/best-careers-with-computer-science-degree/",
+        "https://undergrad.cs.umd.edu/what-computer-science"
 
-    # )
+    ])
     
     docs = scraper.scrapeWebpage([
         "https://www.forbes.com/advisor/education/become-software-engineer/",

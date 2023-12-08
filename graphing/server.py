@@ -73,8 +73,8 @@ def receive_data():
 
 def update_output(div):
     dendro = cache.get('dendrogram')
-    if dendro is None:
-        return go.Figure()
+    # if dendro is None:
+    #     return go.Figure()
     return dendro
 
 @app.server.route('/check_dendrogram', methods=['GET'])

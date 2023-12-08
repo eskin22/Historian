@@ -1,0 +1,155 @@
+html {
+    min-width: 600px;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+body { 
+    margin: 0; 
+    padding: 0; 
+    background-color: #28282B;
+    /* background: linear-gradient(); */
+    overflow: hidden;
+}
+#graphFrame {
+    /* display: flex;
+    flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    width: 600px; /* Adjust the width as needed */
+    height: 300px; /* Adjust the height as needed */
+    margin: 2rem auto; /* This centers the frame in its container */
+    /* position: relative; Position relative so it doesn't affect other elements */
+  }
+  
+  #graphHeader {
+      color: white;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.2em;
+      justify-content: center;
+      text-align: center;
+      margin: 0; /* Ensures no default margins */
+  }
+  
+  
+  /* Additional styles for iframe to ensure it doesn't disrupt the layout
+  iframe#graph {
+    width: 1px; /* Minimize the iframe */
+    /* min-width: 100%; Ensure it takes up the container width */
+    /* height: 100%; Height can be 100% of the container */
+    /* overflow: hidden; Hide any overflow */
+  /* } */
+  
+  /* Hide the iframe visually but keep it in the layout */
+  /* #graph {
+    visibility: hidden;
+    position: relative;
+  } */
+  
+  /* This will ensure the header is visible and centered */
+  /* #graph:not(:empty) + #graphHeader {
+    visibility: visible;
+    position: relative;
+  } */
+  
+
+#graph {
+    /* width: 100%; */
+    /* height: 100%; */
+    visibility: hidden;
+    border: none;
+    order: 2;
+    margin-top: 0;
+    width: 1200px; /* Double the size of the container */
+    height: 600px; 
+    border: none;
+    -ms-zoom: 0.5;
+    -moz-transform: scale(0.5);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.5);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform: scale(0.5);
+    transform-origin: 0 0; 
+    overflow: hidden;
+}
+
+/* #graph:not(:empty) + #graphHeader {
+    display: none;
+} */
+
+/* #buttonHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2rem;
+} */
+
+#buttonHeader {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2rem; /* Or whatever value you had originally */
+}
+#historyButton {
+  background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 3rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#historyButton:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+  transition-duration: .1s;
+}
+
+@media (min-width: 768px) {
+  #historyButton {
+    padding: 0 2.6rem;
+  }
+}
+
+#spinner-wrapper {
+    position: fixed; /* or absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: #455db5ba; */
+    /* background: rgba(255, 255, 255, 0.7); Semi-transparent white */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #455EB5;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
