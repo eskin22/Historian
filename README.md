@@ -48,6 +48,31 @@ This will offer users an intuitive way to visualize their search history while p
 | Build Frontend | Rohan |
 | Build Backend | Kaushal |
 
+# ▶️ Usage
+
+## Local Setup
+
+Historian is not currently being hosted on a domain, which means that the only way to currently use this extension is by running the server locally on your machine. The instructions below will guide you through the setup process step-by-step.
+
+### Step 1: Clone this Repository
+
+First you need to clone this repo to your local machine to access the server as well as the extension. Once cloned, you should be able to run the local server and load the unpacked extension into Google Chrome.
+
+### Step 2: Start the local server
+
+Once you've cloned the repo, you can host the local server on your machine to enable the backend functionality of the extension.
+
+To run the server, simply navigate to the directory of the repo and run `server.py`.
+
+> [!IMPORTANT]
+> Historian works by sending a list of the URLs from your history to the server, which will then perform the computations needed to create the graph. Once completed, the server will asynchrononously update the graph on the frontend for you to see. Thus, it is imperative that you run the server in order to see your results visualized. 
+
+To run the server, simply navigate to the directory of the repo and run `server.py`
+
+### Step 3: Load the unpacked extension into Chrome
+
+### Step 4: Displaying the graph 
+
 # 💙 Contributors
 
 **Blake McBride** (Team Captain) <br> blakepm2@illinois.edu <br>
@@ -55,84 +80,3 @@ This will offer users an intuitive way to visualize their search history while p
 **Rohan Parekh** <br> rohanjp2@illinois.edu <br>
 **Megha Chada** <br> megharc2@illinois.edu <br>
 **Michael Ma** <br> chiuyin2@illinois.edu
-
-## Prerequisites
-
-- Node.js and npm installed for the frontend.
-- Python 3.10.10 installed for the backend.
-
-## Setup & Running Locally
-
-### Frontend (React)
-
-1. Navigate to the frontend directory:
-
-```bash
-cd ambassco-frontend
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Start the React development server:
-
-```bash
-npm start
-```
-
-By default, the frontend will be available at `http://localhost:3000`.
-
-### Backend (Flask in Python)
-
-1. Set up a virtual environment (if you haven't already):
-
-```bash
-python3 -m venv venv
-```
-
-2. Activate the virtual environment:
-
-- **Linux/MacOS**:
-
-```bash
-source venv/bin/activate
-```
-
-- **Windows**:
-
-```bash
-venv\Scripts\activate
-```
-
-3. Install libraries:
-
-```bash
-pip install -r requirements.txt
-```
-
-Optionally, use this to add libraries to requirements.txt:
-```bash
-pip freeze > requirements. txt
-```
-
-4. Navigate to the backend directory:
-
-```bash
-cd backend
-```
-
-4. Start the Flask development server:
-
-```bash
-flask --app server run
-```
-
-Optionally run for automatic reloading when code changes:
-```bash
-flask --app server run --debug
-```
-
-By default, the backend will be available at `http://localhost:5000`.

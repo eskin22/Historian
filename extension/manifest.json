@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Historian",
-  "description": "Build a knowledge graph of your history to find ",
-  "version": "1.0",
+  "description": "Build a hierarchical knowledge graph of your history to identify the similarities between the various webpages you've visited.",
+  "version": "1.1.0",
   "action": {
     "default_popup": "index.html"
   },
