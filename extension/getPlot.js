@@ -56,8 +56,11 @@ function pollDendrogram() {
         .then(response => response.json())
         .then(data => {
             if (data.available) {
+                var graphFrame = document.getElementById('graphFrame');
+                graphFrame.style.display = 'block';
                 var graphHeader = document.getElementById('graphHeader');
                 graphHeader.innerHTML = "";
+                graphHeader.style.position = 'relative';
                 var iframe = document.getElementById('graph');
                 iframe.style.visibility = 'visible';
                 iframe.src = iframe.src;
