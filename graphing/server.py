@@ -45,7 +45,8 @@ app.layout = html.Div([
 
 @app.server.route('/receive_data', methods=['POST'])
 def receive_data():
-    data = request.json
+    data = request.json    
+    print(data)
     urls = data.get('urls', [])
     print(urls)
     
@@ -64,7 +65,16 @@ def receive_data():
     
     cache.set('dendrogram', dendro)
     
+    app.layout = html.Div([
+        dcc.Graph(
+            id="graph",
+            figure=dendro
+        )
+    ])
+    
     return jsonify(message='Dendrogram generated'), 200
+    
+    # return jsonify(message="The server has received the URLS the client sent"), 200
 
 @app.callback(
     Output('graph', 'figure'),
