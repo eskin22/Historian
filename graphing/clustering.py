@@ -97,6 +97,7 @@ class HierarchicalClustering():
             go.Figure: A dendrogram figure
         """
         # webpage_names = [doc.title for doc in docs]
+        print(f"Cluster Shape: {cluster.shape}\nLabels Length: {len(docs)}")
         dendrogram = Dendrogram(cluster, docs).create()
         return dendrogram
     
@@ -113,9 +114,21 @@ class Dendrogram():
             docs (list): The list of documents
         """
         
+        doc_titles = [doc.title for doc in docs]
+        
+        print(f"Labels: \n{doc_titles}")
+        
         self.documents = {}
         for doc in docs:
             self.documents[doc.title] = doc
+            
+        print(f"Labels after conversion to hashmap: {self.documents.keys()}")
+        
+        for doc in doc_titles:
+            if doc not in self.documents.keys():
+                print(f"This is one bad apple: {doc}")
+        
+        print(f"# of Labels Right Before Dendrogram Creation: {len(self.documents.keys())}")
         
         # for key, val in self.documents.items():
         #     print(f'key: {key} val: {val}')
@@ -224,31 +237,31 @@ class Dendrogram():
         """
         self.layout = go.Layout(
             title = dict(
-                text = 'Your Searches',
-                x = 0.5,
-                xanchor = 'center',
-                font = dict(
-                    family = 'Raleway',
-                    size = 40,
-                    color = 'black'
-                )
+                text = None
+                # x = 0.5,
+                # xanchor = 'center',
+                # font = dict(
+                #     family = 'Raleway',
+                #     size = 40,
+                #     color = 'white'
+                # )
             ),
-            annotations = [
-                dict(
-                    x = 0.5,
-                    y = 1.07,
-                    xref = 'paper',
-                    yref = 'paper',
-                    text = 'Hierarchical Clustering Dendrogram',
-                    showarrow = False,
-                    font = dict(
-                        family = 'Open Sans, sans-serif',
-                        size = 18,
-                        color = 'black'
-                    ),
-                    xanchor = 'center'
-                )
-            ],
+            # annotations = [
+            #     dict(
+            #         x = 0.5,
+            #         y = 1.07,
+            #         xref = 'paper',
+            #         yref = 'paper',
+            #         text = 'Hierarchical Clustering Dendrogram',
+            #         showarrow = False,
+            #         font = dict(
+            #             family = 'Open Sans, sans-serif',
+            #             size = 18,
+            #             color = 'white'
+            #         ),
+            #         xanchor = 'center'
+            #     )
+            # ],
             xaxis = dict(
                 showgrid = False,
                 showticklabels = False

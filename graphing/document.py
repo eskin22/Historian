@@ -2,7 +2,7 @@ class Document():
     """
     A class to represent documents (webpages) of text data in a collection
     """
-    def __init__(self, file, test=False) -> None:
+    def __init__(self, title, text, url) -> None:
         """
         Initializes a `Document` object
 
@@ -10,9 +10,14 @@ class Document():
             file (_type_): The file path to the document .txt file
             test (bool, optional): Use `True` for sample data and `False` for real data. Defaults to False.
         """
-        self.title = file
+        self.title = title
+        self.text = text
+        self.url = url
         
-        self.load_doc_text(test)
+        # self.load_doc_text(test)
+        
+    def __str__(self):
+        return f"Title: {self.title} \nURL: {self.url} \nText (Sample): \n{self.text[:100]}"
     
     def load_doc_text(self, test=False) -> None:
         """

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Historian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Might need to switch URL to http://localhost:8050 -->
+</head>
+<body>
+  <div id="spinner-wrapper" style="display: none;">
+    <div class="spinner"></div>
+  </div>
+  <div id="buttonHeader">
+    <button id="historyButton">Visualize History</button>    
+  </div>
+  <div id="graphFrame">
+    <h2 id="graphHeader">There's nothing here (yet!)</h2>
+    <iframe id='graph' src="http://127.0.0.1:8050/" frameborder="0"></iframe>  
+  </div>
+  <!-- <script src="getPlot.js"></script> -->
+  <script src="test.js"></script>
+</body>
+</html>
