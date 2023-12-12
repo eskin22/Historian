@@ -47,7 +47,7 @@ class WebScraper():
         
         return cleaned_text
         
-    def scrapeWebpage(self, urls : list) -> None:
+    def scrapeWebpages(self, urls : list) -> None:
         """
         Extracts text data from webpage(s) at a given url and saves their text data as a string into the `Webscraper.corpus` hashmap
 

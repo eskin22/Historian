@@ -40,6 +40,10 @@
 
 **Historian** is a Google Chrome extension that builds a knowledge graph of your visited webpages based on their similarity with respect to each other.
 
+<p>
+    <img src="public/demos/HistorianDemoGIF.gif">
+</p>
+
 **Features**
 * Builds graph of webpages visited 
 * Visualizes the similarity of webpages in history
@@ -68,6 +72,9 @@ This will offer users an intuitive way to visualize their search history while p
 
 # 🚀 Usage
 
+> ![NOTE] 
+> The section(s) that follow provide comprehensive instructins for getting **Historian** setup on your local device. After completing [Step 1](###step-1:-clone-this-repository) and [Step 4](###step-4:-load-the-unpacked-extension-into-chrome), you can run the [demo script](demo.py) to install dependencies, start the local server, and open some sample webpages to see an easy demonstration of how **Historian** works.
+
 ## Dependencies
 
 The table below gives an overview of the dependencies for this project as well as the versions used. For the packages, you can download these directly or run the `setup.py` script as discussed in the next section.
@@ -87,6 +94,8 @@ The table below gives an overview of the dependencies for this project as well a
 | Flask | [3.0.0](https://pypi.org/project/Flask/#files) |
 | Flask-Caching | [2.1.0](https://pypi.org/project/Flask-Caching/#files) |
 | Flask-Cors | [4.0.0](https://pypi.org/project/Flask-Cors/#files) |
+| Regex | [2023.10.3](https://pypi.org/project/regex/#files) |
+| Alive-Progress | [3.1.5](https://pypi.org/project/alive-progress/#files) |
 
 </details>
 
@@ -199,7 +208,7 @@ After the extension has been loaded into Chrome and the local server has been st
 1. On your computer, open **Chrome**.
 2. Visit some webpages.
     - Try to visit different kinds of webpages so that the app can highlight the divisions between them (e.g. "best snack foods", "top 10 careers for computer science majors", "best nba players of all time"). 
-    - If you're having trouble coming up with ideas or would rather use some pre-selected samples, **please use this**.
+    - If you're having trouble coming up with ideas or would rather use some pre-selected samples, **please use the [demo](demo.py)**.
 3. In the top right, click <img src='public/assets/misc/ChromeExtensionsIcon.png' width='17'> and select **Historian** from the dropdown menu.
 4. In **Historian**, click **Visualize History**.
 
@@ -207,12 +216,234 @@ You should see a graph populate with lines connecting nodes that represents the 
 
 # 🛠 Build
 
+## Overview
 
+**Historian** defines several modules to facilitate its functionality. The table below provides a high-level overview of these modules with links to their respective code and documentation. 
+
+| Module | Purpose | Documentation | 
+| --- | --- | --- |
+| [Document](src/webScraping/document.py) | Represent webpages as documents | [Link](##document) | 
+| [WebScraper](src/webScraping/webScraper.py) | Extract webpage text data | [Link](##webscraper) |
+| [HierarchicalClustering](src/graphing/hierarchicalClustering.py) | Perform agglomerative hierarchical clustering | [Link](##hierarchicalclustering) |
+| [Dendrogram](src/graphing/dendrogram.py) | Visualize hierarchical clusters | [Link](##dendrogram)
+
+## [Document](src/webScraping/document.py)
+
+A class to represent scraped webpages as documents
+
+```
+src.webScraping.document.Document(self, title, text, url)
+```
+
+### Parameters
+
+- ***self*** `Document` : The `Document` object
+- ***title*** `str` : The title of the webpage
+- ***text*** `str` : The text data of the webpage
+- ***url*** `str` : The url of the webpage
+
+### Methods
+
+---
+
+None
+
+---
+
+## [WebScraper](src/webScraping/webScraper.py)
+
+A class for extracting text data from webpages
+
+```
+src.webScraping.webScraper.WebScraper(self)
+```
+
+### Parameters
+
+- ***self*** `WebScraper` : The `WebScraper` object
+
+### Methods
+
+---
+
+**getWebpageText( *self*, *response* )**
+
+Extracts and preprocesses the data from a webpage from a given `requests.Response` object
+
+**Parameters**
+
+- ***self*** `WebScraper` : The `WebScraper` object
+- ***response*** `requests.Response` : A `requests.Response` object for a given URL
+
+**Returns** `str`
+
+---
+
+**scrapeWebpages ( *self*, *urls* )**
+
+Extracts text data from webpage(s) at a given url and saves their text data as a string into the `Webscraper.corpus` hashmap
+
+**Parameters**
+
+- ***self*** `WebScraper` : The `WebScraper` object
+- ***urls*** `list` : A list of URLS for the webpages you want to scrape
+
+**Returns** `dict`
+
+---
+
+## [HierarchicalClustering](src/graphing/hierarchicalClustering.py)
+
+A class to perform agglomerative hierarchical clustering with average link for a collection of webpages
+
+```
+src.graphing.hierarchicalClustering.HierarchicalCluster(self)
+```
+
+### Parameters 
+
+- ***self*** `HierarchicalClustering` : The `HierarchicalClustering` object
+
+### Methods
+
+---
+
+**preprocess( *self*, *text* )**
+
+Preprocesses text data from a document by performing normalization, tokenization, and lemmatization
+
+**Parameters**
+
+- ***self*** `HierarchicalClustering` : The `HierarchicalClustering` object
+- ***text*** `str` : The text data from a webpage document
+
+**Returns** `str`
+
+---
+
+**preprocess_docs( *self*, *docs* )**
+
+Preprocesses text for a collection of documents by performing normalization, tokenization, and lemmatization
+
+**Parameters**
+
+- ***self*** `HierarchicalClustering` : The `HierarchicalClustering` object
+- ***docs*** `list` : A list of the processed documents to 
+
+**Returns** `list`
+
+---
+
+**extract_features( *self*, *docs* )**
+
+Implements Term Frequency (TF) - Inverse Document Frequency (IDF) weighting to a set of (processed) documents
+
+**Parameters**
+
+- ***self*** `HierarchicalClustering` : The `HierarchicalClustering` object
+- ***docs*** `list` : A list of the processed documents you want to analyze
+
+**Returns** `numpy.ndarray`
+
+---
+
+**create_hierarchical_cluster( *self*, *tfidf_matrix* )**
+
+Performs hierarchical/agglomerative clustering for a TF-IDF weighted matrix of text data from a collection of documents using Average-Link
+
+**Parameters**
+
+- ***self*** `HierarchicalClustering` : The `HierarchicalClustering` object
+- ***tfidf_matrix*** `numpy.ndarray` : A TF-IDF weighted mattrix of text data
+
+**Returns** `numpy.ndarray`
+
+---
+
+**create_dendrogram( *self*, *cluster*, *docs*)**
+
+Creates a dendrogram to visualize a hierarchical/agglomerative cluster
+
+**Parameters**
+
+- ***self*** `HierarchicalClustering` : The `HierarchicalClustering` object
+- ***cluster*** `numpy.ndarray` : The hierarchical cluster of the data
+- ***docs*** `list` : A list of the original documents
+
+---
+
+**Returns** `Dendrogram`
+
+## [Dendrogram](src/graphing/dendrogram.py)
+
+A class to visualize a hierarchical clustering of webpages
+
+```
+src.graphing.dendrogram.Dendrogram(self, cluster, docs)
+```
+
+### Parameters
+
+- ***self*** `Dendrogram` : The `Dendrogram` object
+- ***cluster*** `np.ndarray` : The hierarchical cluster of the data
+- ***docs*** `list` : A list of the original documents
+
+### Methods
+
+---
+
+**create( *self* )**
+
+Creates a dendrogram figure for a hierarchical/agglomerative cluster
+
+**Parameters**
+
+- ***self*** `Dendrogram` : The `Dendrogram` object
+
+**Returns** `plotly.graph_objs.Figure` 
+
+---
+
+**create_lines( *self* )**
+
+Creates the lines representing the relationships between nodes in a dendrogram
+
+**Parameters**
+
+- ***self*** `Dendrogram` : The `Dendrogram` object
+
+**Returns** None
+
+---
+
+**create_nodes( *self* )**
+
+Creates the nodes representing the documents in a dendrogram
+
+**Parameters**
+
+- ***self*** `Dendrogram` : The `Dendrogram` object
+
+**Returns** None
+
+---
+
+**create_layout( *self* )**
+
+Creates the layout of the dendrogram
+
+**Parameters**
+
+- ***self*** `Dendrogram` : The `Dendrogram` object
+
+**Returns** None
+
+---
 
 # 💙 Contributors
 
-**Blake McBride** (Team Captain) <br> blakepm2@illinois.edu <br>
-**Kaushal Dadi** <br> kdadi2@illinois.edu <br>
-**Rohan Parekh** <br> rohanjp2@illinois.edu <br>
-**Megha Chada** <br> megharc2@illinois.edu <br>
-**Michael Ma** <br> chiuyin2@illinois.edu
+**Blake McBride** (Team Captain) <br> blakepm2@illinois.edu <br><br>
+**Kaushal Dadi** <br> kdadi2@illinois.edu <br><br>
+**Rohan Parekh** <br> rohanjp2@illinois.edu <br><br>
+**Megha Chada** <br> megharc2@illinois.edu <br><br>
+**Michael Ma** <br> chiuyin2@illinois.edu<br>

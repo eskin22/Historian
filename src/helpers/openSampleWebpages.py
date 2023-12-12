@@ -14,7 +14,7 @@ sampleWebpages = [
     # computer science webpages
     "https://joinhandshake.com/blog/students/top-10-jobs-for-computer-science-majors/",
     "https://www.zdnet.com/education/computers-tech/best-careers-with-computer-science-degree/",
-    "https://undergrad.cs.umd.edu/what-computer-science"
+    "https://undergrad.cs.umd.edu/what-computer-science",
     
     # software engineering webpages
     "https://www.forbes.com/advisor/education/become-software-engineer/",

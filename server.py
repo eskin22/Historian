@@ -72,7 +72,7 @@ def receive_data():
     print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————")
     
     webscraper = WebScraper()    
-    docs = webscraper.scrapeWebpage(urls)
+    docs = webscraper.scrapeWebpages(urls)
     
     print("\nDONE")
     print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————\n")
