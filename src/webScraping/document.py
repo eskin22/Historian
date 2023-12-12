@@ -1,3 +1,10 @@
+"""
+Author:     Blake McBride (blakepm2@illinois.edu)
+Created:    12/02/2023
+
+Overview:   This file defines the `Document` class which will be used to represent webpage documents
+"""
+
 class Document():
     """
     A class to represent documents (webpages) of text data in a collection
