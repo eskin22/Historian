@@ -1,106 +1,14 @@
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-from sklearn.feature_extraction.text import TfidfVectorizer
-import numpy as np
-from scipy.cluster.hierarchy import linkage
+"""
+Author:     Blake McBride (blakepm2@illinois.edu)
+Created:    12/04/2023
+
+Overview:   This file defines the `Dendrogram` class which will be used to visualize the hierarchical clusters of the webpages sent from the client
+"""
+
+# import standard modules
 from scipy.cluster.hierarchy import dendrogram
-import string
 import plotly.graph_objs as go
-import os
 
-from document import Document
-
-class HierarchicalClustering():
-    """
-    A class to implement hierarchical clustering for documents
-    """
-    
-    def __init__(self) -> None:
-        """
-        Initializes a `HierarchicalClustering` object
-        """
-        self.stop_words = set(stopwords.words('english'))
-        self.lemmatizer = WordNetLemmatizer()
-        self.vectorizer = TfidfVectorizer()
-    
-    def preprocess(self, text : str) -> str:
-        """
-        Preprocesses text data from a document by performing normalization, tokenization, and lemmatization
-
-        Args:
-            text (str): the text data from a document
-
-        Returns:
-            str: processed text data
-        """
-        text = text.lower()
-        text = text.translate(str.maketrans('', '', string.punctuation))
-        tokens = nltk.word_tokenize(text)
-        filtered_tokens = [self.lemmatizer.lemmatize(token) for token in tokens if token not in self.stop_words]
-        
-        return ' '.join(filtered_tokens)
-    
-    def preprocess_docs(self, docs : list) -> list:
-        """
-        Preprocesses text for a collection of documents by performing normalization, tokenization, and lemmatization
-
-        Args:
-            docs (list): A list of the documents you want to process
-
-        Returns:
-            list: A list of processed documents
-        """
-        processed_docs = [self.preprocess(doc.text) for doc in docs]
-        
-        return processed_docs
-    
-    def extract_features(self, docs : list) -> np.ndarray:
-        """
-        Implements Term Frequency (TF) - Inverse Document Frequency (IDF) weighting to a set of (processed) documents
-        
-        NOTE: This method assumes the text of your documents has already been preprocessed (normalized, tokenized, lemmatized)
-
-        Args:
-            docs (list): A list of the processed documents you want to analyze
-
-        Returns:
-            np.ndarray: A TF-IDF matrix
-        """
-        tfidf_matrix = self.vectorizer.fit_transform(docs)
-        tfidf_matrix = tfidf_matrix.toarray()
-        
-        return tfidf_matrix
-    
-    def create_hierarchical_cluster(self, tfidf_matrix : np.ndarray):
-        """
-        Performs hierarchical/agglomerative clustering for a TF-IDF weighted matrix of text data from a collection of documents using Average-Link
-
-        Args:
-            tfidf_matrix (np.ndarray): A TF-IDF matrix
-
-        Returns:
-            Any: A hierarchical/agglomerative cluster of the data
-        """
-        cluster = linkage(tfidf_matrix, method='average')
-        return cluster
-    
-    def create_dendrogram(self, cluster, docs : list) -> go.Figure:
-        """
-        Creates a dendrogram to visualize a hierarchical/agglomerative cluster
-
-        Args:
-            cluster (_type_): The hierarchical cluster of the data
-            docs (list): The list of documents
-
-        Returns:
-            go.Figure: A dendrogram figure
-        """
-        # webpage_names = [doc.title for doc in docs]
-        print(f"Cluster Shape: {cluster.shape}\nLabels Length: {len(docs)}")
-        dendrogram = Dendrogram(cluster, docs).create()
-        return dendrogram
-    
 class Dendrogram():
     """
     A class to create dendrogram visualizations of hierarchical/agglomerative clusters
@@ -116,19 +24,19 @@ class Dendrogram():
         
         doc_titles = [doc.title for doc in docs]
         
-        print(f"Labels: \n{doc_titles}")
+        # print(f"Labels: \n{doc_titles}")
         
         self.documents = {}
         for doc in docs:
             self.documents[doc.title] = doc
             
-        print(f"Labels after conversion to hashmap: {self.documents.keys()}")
+        # print(f"Labels after conversion to hashmap: {self.documents.keys()}")
         
-        for doc in doc_titles:
-            if doc not in self.documents.keys():
-                print(f"This is one bad apple: {doc}")
+        # for doc in doc_titles:
+        #     if doc not in self.documents.keys():
+        #         print(f"This is one bad apple: {doc}")
         
-        print(f"# of Labels Right Before Dendrogram Creation: {len(self.documents.keys())}")
+        # print(f"# of Labels Right Before Dendrogram Creation: {len(self.documents.keys())}")
         
         # for key, val in self.documents.items():
         #     print(f'key: {key} val: {val}')
@@ -279,25 +187,3 @@ class Dendrogram():
             paper_bgcolor='rgba(0, 0, 0, 0)',
             plot_bgcolor='rgba(0, 0, 0, 0)'
         )
-
-if __name__ == '__main__':
-    
-    # sample usage
-    
-    # load in sample documents as Document objects
-    docs = [Document(file, test=True) for file in os.listdir('sample_data')]
-    print(docs)
-    # create a HierarchicalClusting object to cluster documents
-    hc = HierarchicalClustering()
-    
-    # preprocess the documents and create TF-IDF matrix
-    processed_docs = hc.preprocess_docs(docs)
-    tfidf_matrix = hc.extract_features(processed_docs)
-    
-    # create hierarchical cluster of documents
-    cluster = hc.create_hierarchical_cluster(tfidf_matrix)
-    
-    # create and visualize hierarchical cluster with dendrogram
-    dendro = hc.create_dendrogram(cluster, docs)
-    dendro.show()
-                

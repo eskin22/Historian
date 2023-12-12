@@ -1,3 +1,11 @@
+"""
+Author:     Blake McBride (blakepm2@illinois.edu)
+Created:    12/03/2023
+
+Overview:   This file defines the `HierarchicalClustering` class which will be used to perform agglomerative hierarchical clustering on webpages sent from the client
+"""
+
+# standard imports
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -6,9 +14,10 @@ import numpy as np
 from scipy.cluster.hierarchy import linkage
 import string
 import plotly.graph_objs as go
+from alive_progress import alive_bar
 
-
-from src.dendrogram import Dendrogram
+# src imports
+from src.graphing.dendrogram import Dendrogram
 
 class HierarchicalClustering():
     """
@@ -95,7 +104,28 @@ class HierarchicalClustering():
         Returns:
             go.Figure: A dendrogram figure
         """
-        # webpage_names = [doc.title for doc in docs]
-        print(f"Cluster Shape: {cluster.shape}\nLabels Length: {len(docs)}")
+        # print(f"Cluster Shape: {cluster.shape}\nLabels Length: {len(docs)}")
+        
         dendrogram = Dendrogram(cluster, docs).create()
         return dendrogram
+    
+    def main(self, docs : list):
+        
+        with alive_bar(4) as bar:
+            bar.text("Processing webpages")
+            processed_docs = self.preprocess_docs(docs)
+            bar()
+            
+            bar.text("Extracting features")
+            tfidf_matrix = self.extract_features(processed_docs)
+            bar()
+            
+            bar.text("Performing Agglomerative Clustering")
+            cluster = self.create_hierarchical_cluster(tfidf_matrix)
+            bar()
+        
+            bar.text("Creating dendrogram")
+            dendro = self.create_dendrogram(cluster, docs)
+            bar()
+            
+        return dendro

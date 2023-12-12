@@ -1,6 +1,14 @@
+"""
+Author(s):  Blake McBride (blakepm2@illinois.edu)
+Created:    12/06/2023
+
+Overview:   This file defines the backend server functionality for Historian
+"""
+
+# import standard modules
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc 
+from dash import html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 from flask import request
@@ -8,13 +16,15 @@ from flask_cors import CORS
 from flask import jsonify
 from flask_caching import Cache
 
-from src.webScraper import WebScraper
-from src.hierarchicalClustering import HierarchicalClustering
+# import src modules
+from src.webScraping.webScraper import WebScraper
+from src.graphing.hierarchicalClustering import HierarchicalClustering
 
-# Initialize the Dash app
+# initialize the Historian app
 app = dash.Dash("Historian")
 server = app.server
 
+# initialize cache to save dendrogram if fetch fails 
 cache = Cache(app.server, config={
     'CACHE_TYPE' : 'filesystem',
     'CACHE_DIR' : 'cache-directory'
@@ -22,9 +32,11 @@ cache = Cache(app.server, config={
 
 cache.init_app(server)
 
+# configure CORS to allow requests from frontend
 extension_id = "inkjogmocgpoclmjkngkdblcpceagmnc"
 CORS(app.server, resources={r"/*": {"origins": f"chrome-extension://{extension_id}"}})
 
+# setup initial app layout
 app.layout = html.Div([
     dcc.Graph(id='graph'),
     html.Div(id="hidden-div", style={'display': 'none'})
@@ -40,28 +52,47 @@ app.layout = html.Div([
 #         webbrowser.open_new_tab(point_url)
 #     return dendro
 
+# create server route for clients to send data to the backend 
 @app.server.route('/receive_data', methods=['POST'])
 def receive_data():
+    
+    # get the list of urls sent from the client and print them
     data = request.json    
-    print(data)
     urls = data.get('urls', [])
-    print(urls)
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————")
+    print("RECEIVED URLS FROM CLIENT")
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————")
+    for url in urls:
+        print("     ", url)
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————\n")
     
-    webscraper = WebScraper()
+    # scrape the text data at the webpages
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————")
+    print("EXTRACTING WEBPAGE TEXT")
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————")
     
+    webscraper = WebScraper()    
     docs = webscraper.scrapeWebpage(urls)
     
+    print("\nDONE")
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————\n")
+    
+    # preprocess the webpage documents and perform agglomerative hierarchical clustering
+    # then visualize the results in a Dendrogram figure and display it for the user to see
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————")
+    print("PROCESSING WEBPAGE DATA")
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————")
+    
     hc = HierarchicalClustering()
+    dendro = hc.main(docs)
+
+    print("\nDONE")
+    print("——————————————————————————————————————————————————————————————————————————————————————————————————————————————\n")
     
-    processed_docs = hc.preprocess_docs(docs)
-    tfidf_matrix = hc.extract_features(processed_docs)
-    
-    cluster = hc.create_hierarchical_cluster(tfidf_matrix)
-    
-    dendro = hc.create_dendrogram(cluster, docs)
-    
+    # store the figure in cache in case fetch fails
     cache.set('dendrogram', dendro)
     
+    # update the figure on the frontend
     app.layout = html.Div([
         dcc.Graph(
             id="graph",
@@ -70,20 +101,13 @@ def receive_data():
     ])
     
     return jsonify(message='Dendrogram generated'), 200
-    
-    # return jsonify(message="The server has received the URLS the client sent"), 200
 
 @app.callback(
     Output('graph', 'figure'),
     [Input('hidden-div', 'children')]
 )
 
-def update_output(div):
-    dendro = cache.get('dendrogram')
-    # if dendro is None:
-    #     return go.Figure()
-    return dendro
-
+# create server route to check figure availability on the server side
 @app.server.route('/check_dendrogram', methods=['GET'])
 def check_dendrogram():
     dendro = cache.get('dendrogram')
@@ -92,4 +116,6 @@ def check_dendrogram():
     return jsonify(available=False)
 
 if __name__ == '__main__':
+    
+    # start the server
     app.run_server(debug=False)

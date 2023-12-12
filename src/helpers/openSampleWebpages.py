@@ -1,6 +1,14 @@
+"""
+Author:     Blake McBride (blakepm2@illinois.edu)
+Created:    12/12/2023
+
+Overview:   This file contains a script to open sampled webpages for demoing Historian
+"""
+
+# import standard modules
 import webbrowser
 
-
+# create list of sample webpages from a variety of topics
 sampleWebpages = [
     
     # computer science webpages
