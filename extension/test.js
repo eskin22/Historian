@@ -76,7 +76,7 @@ async function getGraph() {
         graphHeader.style.position = 'relative';
         var iframe = document.getElementById('graph');
         iframe.style.visibility = 'visible';
-        iframe.src = iframe.src;
+        iframe.src = "http://127.0.0.1:8050/";
     }
 
     hideSpinner();
