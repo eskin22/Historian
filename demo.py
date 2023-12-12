@@ -9,7 +9,7 @@ Overview:   This file contains a demo script to open sample webpages and start r
 import subprocess 
 
 # check dependencies
-# subprocess.run(['python', 'setup.py'])
+subprocess.run(['python', 'setup.py'])
 
 # open the sample webpages 
 subprocess.run(['python', 'src/helpers/openSampleWebpages.py'])
