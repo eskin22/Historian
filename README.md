@@ -72,7 +72,7 @@ This will offer users an intuitive way to visualize their search history while p
 
 # 🚀 Usage
 
-> ![NOTE] 
+> [!NOTE] 
 > The section(s) that follow provide comprehensive instructins for getting **Historian** setup on your local device. After completing [Step 1](###step-1:-clone-this-repository) and [Step 4](###step-4:-load-the-unpacked-extension-into-chrome), you can run the [demo script](demo.py) to install dependencies, start the local server, and open some sample webpages to see an easy demonstration of how **Historian** works.
 
 ## Dependencies
