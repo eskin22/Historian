@@ -1,9 +1,9 @@
 <p align="center">
-    <img src="assets/logo.png" width="600" alt="logo">
+    <img src="public/assets/logo.png" width="600" alt="logo">
 </p>
 <p align="center">
     Created by
-    <img src="assets/test.svg" width="130" height="25" align="center">
+    <img src="public/assets/test.svg" width="130" height="25" align="center">
 </p>
 
 ---
@@ -106,7 +106,7 @@ First you need to clone this repo to your local machine to access the server as 
 2. Above the list of files, click **<> Code**.
 
 3. Copy the URL for the repository.
-    - To clone the repository using HTTPS, under "HTTPS", click <img src="assets/misc/CopyIcon.png" width="17">.
+    - To clone the repository using HTTPS, under "HTTPS", click <img src="public/assets/misc/CopyIcon.png" width="17">.
 
 4. Open Git Bash.
 
@@ -200,7 +200,7 @@ After the extension has been loaded into Chrome and the local server has been st
 2. Visit some webpages.
     - Try to visit different kinds of webpages so that the app can highlight the divisions between them (e.g. "best snack foods", "top 10 careers for computer science majors", "best nba players of all time"). 
     - If you're having trouble coming up with ideas or would rather use some pre-selected samples, **please use this**.
-3. In the top right, click <img src='assets/misc/ChromeExtensionsIcon.png' width='17'> and select **Historian** from the dropdown menu.
+3. In the top right, click <img src='public/assets/misc/ChromeExtensionsIcon.png' width='17'> and select **Historian** from the dropdown menu.
 4. In **Historian**, click **Visualize History**.
 
 You should see a graph populate with lines connecting nodes that represents the hierarchical clusters of your browsing history. 
