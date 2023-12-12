@@ -40,9 +40,9 @@
 
 **Historian** is a Google Chrome extension that builds a knowledge graph of your visited webpages based on their similarity with respect to each other.
 
-<p>
+<!-- <p>
     <img src="public/demos/HistorianDemoGIF.gif">
-</p>
+</p> -->
 
 **Features**
 * Builds graph of webpages visited 
