@@ -547,6 +547,6 @@ None
 | --- | --- | --- | --- |
 | Blake McBride ⭐️ | blakepm2@illinois.edu | ✅ | Created Document class; created WebScraper class; created HierarchicalClustering class; created Dendrogram class; configured agglomerative hierarchical clustering algorithm; designed webscraping logic; wrote visualization logic; configured local server; created all functions for and designed frontend; implemented API calls from frontend to server; designed logo(s); wrote setup instructions; wrote documentation; designed README; wrote, editied, and produced video presentation.|
 | Kaushal Dadi | kdadi2@illinois.edu | ❌ | Created manifest.json; put iframe in HTML to show graph on webpage. |
-| Rohan Parekh | rohanjp2@illinois.edu | ❌ | None |
+| Rohan Parekh | rohanjp2@illinois.edu | ❌ | Helped Kaushal with creation of manifest.json and the chrome extension that displayed the graph on the webpage. |
 | Megha Chada | megharc2@illinois.edu | ❌ | Changed colors for graph; added comments; created architectural diagram |
 | Michael Ma | chiuyin2@illinois.edu | ❌ | Added unfinished labels to the graph |
