@@ -33,7 +33,7 @@ cache = Cache(app.server, config={
 cache.init_app(server)
 
 # configure CORS to allow requests from frontend
-extension_id = "inkjogmocgpoclmjkngkdblcpceagmnc"
+extension_id = "efgnmahmglilhimdpjgjedjieapjkjeh"
 CORS(app.server, resources={r"/*": {"origins": f"chrome-extension://{extension_id}"}})
 
 # setup initial app layout
