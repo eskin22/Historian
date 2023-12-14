@@ -31,7 +31,7 @@
 1. [📖 What is Historian?](#📖-what-is-historian)
 2. [🎯 Objective](#🎯-objective)
 3. [🚀 Usage](#🚀-usage)
-4. [🛠 Buld](#🛠-build)
+4. [🛠 Build](#🛠-build)
 4. [💙 Contributors](#💙-contributors)
 
 # 📖 What is Historian?
@@ -40,13 +40,17 @@
 
 **Historian** is a Google Chrome extension that builds a knowledge graph of your visited webpages based on their similarity with respect to each other.
 
-<!-- <p>
-    <img src="public/demos/HistorianDemoGIF.gif">
-</p> -->
+<p align="center">
+    <a href="https://www.youtube.com/watch?v=VckfTyYd-Ag">
+        <img src="public/assets/thumbnail.png" width="700">
+    </a>
+</p>
 
-**Features**
+## Features
+
 * Builds graph of webpages visited 
 * Visualizes the similarity of webpages in history
+* Clusters similar webpages together under shared topics
 * Presents an intuitive way to research
 
 <br>
@@ -214,6 +218,20 @@ After the extension has been loaded into Chrome and the local server has been st
 
 You should see a graph populate with lines connecting nodes that represents the hierarchical clusters of your browsing history. 
 
+### Troubleshooting FAQ
+
+#### The server successfully created the graph but the extension loads forever
+
+If there are no errors on the server-side and the extension takes too long to load your dendrogram, the issue is the Cross-Origin Resource Sharing (CORS) policy. This issue occurs because when you load **Historian** into Chrome, your **Extension ID** may be different from the one included in the code.
+
+To fix this, simply go to **Chrome** > **Manage Extensions** and copy the **Extension ID** you see under **Historian**. Then navigate to [server.py](server.py) and replace line 37 with your **Extension ID**.
+
+#### The server failed to create a graph due to a dimensional mismatch
+
+If the server throws an error saying it failed to create the dendrogram due to a mismatch in dimensions, this is likely because either the webpages could not be parsed or the webpages had the same titles. Currently, Historian can only analyze distinct webpages (i.e. webpages with unique titles).
+
+To fix this, you can either try to visit some different webpages or you can simply run the [demo script](demo.py) to get some presampled webpages to use.
+
 # 🛠 Build
 
 ## Overview
@@ -225,7 +243,8 @@ You should see a graph populate with lines connecting nodes that represents the 
 | [Document](src/webScraping/document.py) | Represent webpages as documents | [Link](##document) | 
 | [WebScraper](src/webScraping/webScraper.py) | Extract webpage text data | [Link](##webscraper) |
 | [HierarchicalClustering](src/graphing/hierarchicalClustering.py) | Perform agglomerative hierarchical clustering | [Link](##hierarchicalclustering) |
-| [Dendrogram](src/graphing/dendrogram.py) | Visualize hierarchical clusters | [Link](##dendrogram)
+| [Dendrogram](src/graphing/dendrogram.py) | Visualize hierarchical clusters | [Link](##dendrogram) |
+| [Frontend](extension/script.js) | Enable user functionality | [Link](##frontend) |
 
 ## [Document](src/webScraping/document.py)
 
@@ -440,10 +459,94 @@ Creates the layout of the dendrogram
 
 ---
 
+## [Frontend](extension/script.js)
+
+Enables user functionality by sending data to the server
+
+### Methods
+
+---
+
+[**fetchHistory( )**](extension/src/fetchHistory.js)
+
+Uses the Google Chrome history API to fetch the user's recent browsing history
+
+**Parameters**
+
+None
+
+**Returns** `Response`
+
+---
+
+[**checkAvailability( )**](extension/src/getGraph.js)
+
+Checks the server to see if the preprocessing has been done so it can fetch the graph
+
+**Parameters**
+
+None 
+
+**Returns** `boolean`
+
+---
+
+[**getGraph( )**](extension/src/getGraph.js)
+
+Loads the graph created by the server into the frontend for the user to see
+
+**Parameters**
+
+None
+
+**Returns** `boolean`
+
+---
+
+[**sendURLSToServer( )**](extension/src/sendURLStoServer.js)
+
+Leverages API call to send the user's browsing history over to the server for processing
+
+**Parameters**
+
+None
+
+**Returns** `data.message`
+
+---
+
+[**showSpinner( )**](extension/src/spinners.js)
+
+Shows a spinner while the page loads
+
+**Parameters**
+
+None
+
+**Returns** None
+
+---
+
+[**hideSpinner( )**](extension/src/spinners.js)
+
+Hides the spinner after a page has finished loading
+
+**Parameters**
+
+None 
+
+**Returns** None
+
+---
+
 # 💙 Contributors
 
-**Blake McBride** (Team Captain) <br> blakepm2@illinois.edu <br><br>
-**Kaushal Dadi** <br> kdadi2@illinois.edu <br><br>
-**Rohan Parekh** <br> rohanjp2@illinois.edu <br><br>
-**Megha Chada** <br> megharc2@illinois.edu <br><br>
-**Michael Ma** <br> chiuyin2@illinois.edu<br>
+"⭐️" denotes Team Leader
+
+| Name | NetID/Email | Completed Assigned Work | Contributions |
+| --- | --- | --- | --- |
+| Blake McBride ⭐️ | blakepm2@illinois.edu | ✅ | Created Document class; created WebScraper class; created HierarchicalClustering class; created Dendrogram class; configured agglomerative hierarchical clustering algorithm; designed webscraping logic; wrote visualization logic; configured local server; created all functions for and designed frontend; implemented API calls from frontend to server; designed logo(s); wrote setup instructions; wrote documentation; designed README; wrote, editied, and produced video presentation.|
+| Kaushal Dadi | kdadi2@illinois.edu | ❌ | Created manifest.json; put iframe in HTML to show graph on webpage. |
+| Rohan Parekh | rohanjp2@illinois.edu | ❌ | None |
+| Megha Chada | megharc2@illinois.edu | ❌ | Changed colors for graph; added comments; created architectural diagram |
+| Michael Ma | chiuyin2@illinois.edu | ❌ | Added unfinished labels to the graph |
