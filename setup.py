@@ -36,8 +36,16 @@ def installDependencies():
     
     for package in packages:
         subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        
+def getNLTKPackages():
+    import nltk
+    nltk.download('stopwords')
+    nltk.download('wordnet')
+    nltk.download('punkt')
+    
     
 if __name__ == '__main__':
     checkPythonVersion()
     installDependencies()
+    getNLTKPackages()
         
