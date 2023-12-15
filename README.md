@@ -41,7 +41,7 @@
 **Historian** is a Google Chrome extension that builds a knowledge graph of your visited webpages based on their similarity with respect to each other.
 
 <p align="center">
-    <a href="https://www.youtube.com/watch?v=VckfTyYd-Ag">
+    <a href="https://www.youtube.com/watch?v=EzGEQ4Oikb4">
         <img src="public/assets/thumbnail.png" width="700">
     </a>
 </p>
@@ -77,7 +77,7 @@ This will offer users an intuitive way to visualize their search history while p
 # 🚀 Usage
 
 > [!NOTE] 
-> The section(s) that follow provide comprehensive instructins for getting **Historian** setup on your local device. After completing [Step 1](###step-1:-clone-this-repository) and [Step 4](###step-4:-load-the-unpacked-extension-into-chrome), you can run the [demo script](demo.py) to install dependencies, start the local server, and open some sample webpages to see an easy demonstration of how **Historian** works.
+> The section(s) that follow provide comprehensive instructions for getting **Historian** setup on your local device. After completing [Step 1](###step-1:-clone-this-repository) and [Step 4](###step-4:-load-the-unpacked-extension-into-chrome), you can run the [demo script](demo.py) to install dependencies, start the local server, and open some sample webpages to see an easy demonstration of how **Historian** works.
 
 ## Dependencies
 
@@ -543,10 +543,10 @@ None
 
 "⭐️" denotes Team Leader
 
-| Name | NetID/Email | Completed Assigned Work | Contributions |
-| --- | --- | --- | --- |
-| Blake McBride ⭐️ | blakepm2@illinois.edu | ✅ | Created Document class; created WebScraper class; created HierarchicalClustering class; created Dendrogram class; configured agglomerative hierarchical clustering algorithm; designed webscraping logic; wrote visualization logic; configured local server; created all functions for and designed frontend; implemented API calls from frontend to server; designed logo(s); wrote setup instructions; wrote documentation; designed README; wrote, editied, and produced video presentation.|
-| Kaushal Dadi | kdadi2@illinois.edu | ❌ | Created manifest.json; put iframe in HTML to show graph on webpage. |
-| Rohan Parekh | rohanjp2@illinois.edu | ❌ | None |
-| Megha Chada | megharc2@illinois.edu | ❌ | Changed colors for graph; added comments; created architectural diagram |
-| Michael Ma | chiuyin2@illinois.edu | ❌ | Added unfinished labels to the graph |
+| Name | NetID/Email | Contributions |
+| --- | --- | --- |
+| Blake McBride ⭐️ | blakepm2@illinois.edu | Created Document class; created WebScraper class; created HierarchicalClustering class; created Dendrogram class; configured agglomerative hierarchical clustering algorithm; designed webscraping logic; wrote visualization logic; configured local server; created all functions for and designed frontend; implemented API calls from frontend to server; designed logo(s); wrote setup instructions; wrote documentation; designed README; wrote, editied, and produced video presentation.|
+| Kaushal Dadi | kdadi2@illinois.edu | Created manifest.json; put iframe in HTML to show graph on webpage; built preliminary frontend. |
+| Rohan Parekh | rohanjp2@illinois.edu | Helped Kaushal with creation of manifest.json and the chrome extension that displayed the graph on the webpage. |
+| Megha Chada | megharc2@illinois.edu | Changed colors for graph; added comments; created architectural diagram. |
+| Michael Ma | chiuyin2@illinois.edu | Added unfinished topic labels to the graph. |
